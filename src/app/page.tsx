@@ -1,21 +1,22 @@
-
 import Link from "next/link"
+import x from './styles/app.module.css'
+import y from './styles/ksm.module.css'
 
 const Home = () => {
   return (
     <div>
       <ul>
-        <li>
+        <li className={x["red"]}>
           <Link href="/facebook">Facebook</Link>
         </li>
-        <li>
+        <li className={y["red"]}>
           <Link href="/youtube">Youtube</Link>
         </li>
         <li>
           <Link href="/tiktok">Tiktok</Link>
         </li>
       </ul>
-    </div>
+    </div >
   )
 }
 export default Home
