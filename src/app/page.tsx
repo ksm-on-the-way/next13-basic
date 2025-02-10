@@ -1,16 +1,18 @@
 
+import Link from "next/link"
+
 const Home = () => {
   return (
     <div>
       <ul>
         <li>
-          <a href="/facebook">Facebook</a>
+          <Link href="/facebook">Facebook</Link>
         </li>
         <li>
-          <a href="/youtube">Youtube</a>
+          <Link href="/youtube">Youtube</Link>
         </li>
         <li>
-          <a href="/tiktok">Tiktok</a>
+          <Link href="/tiktok">Tiktok</Link>
         </li>
       </ul>
     </div>
