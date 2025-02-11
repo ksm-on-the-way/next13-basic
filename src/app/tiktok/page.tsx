@@ -1,6 +1,6 @@
 const Tiktok = () => {
     return (
-        <>Hello from FB</>
+        <>Hello from Tiktok</>
     )
 }
 export default Tiktok

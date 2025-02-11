@@ -1,6 +1,6 @@
 const Youtube = () => {
     return (
-        <>Hello from FB</>
+        <>Hello from Youtube</>
     )
 }
 export default Youtube
