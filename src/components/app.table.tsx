@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
 import CreateModal from './create.modal';
 import { useState } from 'react';
+import UpdateModal from './update.modal';
 
 interface IProps {
     blogs: IBlog[]
@@ -10,8 +11,12 @@ interface IProps {
 const AppTable = (props: IProps) => {
     const { blogs } = props
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false)
+    const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false)
     const handleAddnew = () => {
         setShowModalCreate(true)
+    }
+    const handleUpdate = () => {
+        setShowModalUpdate(true)
     }
     return (
         <>
@@ -37,7 +42,7 @@ const AppTable = (props: IProps) => {
                                 <td>{item.author}</td>
                                 <td>
                                     <Button>View</Button>
-                                    <Button variant='warning' className='mx-3'>Edit</Button>
+                                    <Button variant='warning' className='mx-3' onClick={handleUpdate}>Edit</Button>
                                     <Button variant='danger'>Delete</Button>
                                 </td>
                             </tr>
@@ -50,6 +55,11 @@ const AppTable = (props: IProps) => {
                 setShowModalCreate={setShowModalCreate}
             >
             </CreateModal>
+            <UpdateModal
+                showModalUpdate={showModalUpdate}
+                setShowModalUpdate={setShowModalUpdate}
+            >
+            </UpdateModal>
         </>
 
     )
