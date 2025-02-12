@@ -21,7 +21,6 @@ const Home = () => {
   if (!data) {
     return <div>Data is loading ...</div>
   }
-  console.log("Check data: ", data)
 
   return (
     <div>
@@ -32,11 +31,11 @@ const Home = () => {
         <li className={y["red"]}>
           <Link href="/youtube">Youtube</Link>
         </li>
-        <li style={{margin: "20px 0px"}}>
+        <li style={{ margin: "20px 0px" }}>
           <Link href="/tiktok" >Tiktok</Link>
         </li>
       </ul>
-      <AppTable blogs={data}></AppTable>
+      <AppTable blogs={data?.sort((a: any, b: any) => b.id - a.id)}></AppTable>
     </div >
   )
 }
