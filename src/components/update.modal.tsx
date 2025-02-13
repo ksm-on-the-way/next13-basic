@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -7,16 +7,32 @@ import { toast } from 'react-toastify';
 import { mutate } from 'swr';
 
 interface IProps {
-    showModalUpdate: boolean,
+    showModalUpdate: boolean
     setShowModalUpdate: (v: boolean) => void
+    blog: IBlog | null
+    setBlog: (v: IBlog | null) => void
 }
 
 
 function UpdateModal(props: IProps) {
-    const { showModalUpdate, setShowModalUpdate } = props
+    const { showModalUpdate, setShowModalUpdate, blog, setBlog } = props
+    const [id, setId] = useState<number>(0)
     const [title, setTitle] = useState<string>("")
     const [author, setAuthor] = useState<string>("")
     const [content, setContent] = useState<string>("")
+
+    useEffect(() => {
+        if (blog && blog.id) {
+            setId(blog.id)
+            setTitle(blog.title)
+            setAuthor(blog.author)
+            setContent(blog.content)
+        }
+    }, [blog])
+
+
+
+
     const handleSubmit = () => {
         if (!title) {
             toast.error("Not empty title!")
@@ -30,19 +46,19 @@ function UpdateModal(props: IProps) {
             toast.error("Not empty content!")
             return
         }
-        fetch("http://localhost:8000/blogs",
+        fetch(`http://localhost:8000/blogs/${id}`,
             {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method: "POST",
+                method: "PUT",
                 body: JSON.stringify({ title, author, content })
             })
             .then((res) => res.json())
             .then((res) => {
                 if (res) {
-                    toast.success("Update succeed !... ~")
+                    toast.warning("Update blog succeed !... ~")
                     handleCloseModal()
                 }
             })
@@ -52,6 +68,7 @@ function UpdateModal(props: IProps) {
         setTitle("")
         setAuthor("")
         setContent("")
+        setBlog(null);
         setShowModalUpdate(false)
         mutate("http://localhost:8000/blogs")
     }
@@ -64,7 +81,7 @@ function UpdateModal(props: IProps) {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add New A Blog</Modal.Title>
+                    <Modal.Title>Update A Blog</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>

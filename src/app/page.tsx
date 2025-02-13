@@ -2,26 +2,10 @@
 import Link from "next/link"
 import x from './styles/app.module.css'
 import y from './styles/ksm.module.css'
-import { useEffect, useState } from "react"
-import useSWR from "swr";
-import AppTable from "@/components/app.table"
+
+
 
 const Home = () => {
-  const fetcher = (url: string) => fetch(url)
-    .then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:8000/blogs",
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false
-    }
-  )
-  if (!data) {
-    return <div>Data is loading ...</div>
-  }
-
   return (
     <div>
       <ul>
@@ -35,7 +19,7 @@ const Home = () => {
           <Link href="/tiktok" >Tiktok</Link>
         </li>
       </ul>
-      <AppTable blogs={data?.sort((a: any, b: any) => b.id - a.id)}></AppTable>
+
     </div >
   )
 }
